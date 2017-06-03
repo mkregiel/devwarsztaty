@@ -4,3 +4,7 @@
 
 /devwarsztaty.service/obj
 /devwarsztaty.service/bin/Debug/netcoreapp1.1
+/devwarsztaty.web/obj
+/devwarsztaty.web/bin/Debug/netcoreapp1.1
+/devwarsztaty.messages/obj
+/devwarsztaty.messages/bin/Debug/netcoreapp1.1

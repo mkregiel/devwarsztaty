@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devwarsztaty.service", "..\devwarsztaty.service\devwarsztaty.service.csproj", "{989ECCF8-151A-40A2-83B9-C1A64A274B76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devwarsztaty.service", "devwarsztaty.service\devwarsztaty.service.csproj", "{989ECCF8-151A-40A2-83B9-C1A64A274B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devwarsztaty.web", "..\devwarsztaty.web\devwarsztaty.web.csproj", "{DCA5392C-B14F-4CBE-A1C9-33E1B3D07FBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devwarsztaty.web", "devwarsztaty.web\devwarsztaty.web.csproj", "{DCA5392C-B14F-4CBE-A1C9-33E1B3D07FBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devwarsztaty.messages", "devwarsztaty.messages\devwarsztaty.messages.csproj", "{1FE79EC7-1529-4FDF-A468-F38E6AB1A765}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DCA5392C-B14F-4CBE-A1C9-33E1B3D07FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCA5392C-B14F-4CBE-A1C9-33E1B3D07FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCA5392C-B14F-4CBE-A1C9-33E1B3D07FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE79EC7-1529-4FDF-A468-F38E6AB1A765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE79EC7-1529-4FDF-A468-F38E6AB1A765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE79EC7-1529-4FDF-A468-F38E6AB1A765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE79EC7-1529-4FDF-A468-F38E6AB1A765}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
