@@ -1,0 +1,209 @@
+curl localhost:5000/records -X POST -H "content-type: application/json" -d '{"key": "my-key", "value": "my-value"}' 
+ 
+-------------
+ 
+docker run -p 5672:5672 rabbitmq
+ 
+-------------
+ 
+appsettings.json
+ 
+  "rabbitmq": {
+    "Username": "guest",
+    "Password": "guest",
+    "VirtualHost": "/",
+    "Port": 5672,
+    "Hostnames": [ "localhost" ],
+    "RequestTimeout": "00:00:10",
+    "PublishConfirmTimeout": "00:00:01",
+    "RecoveryInterval": "00:00:10",
+    "PersistentDeliveryMode": true,
+    "AutoCloseConnection": true,
+    "AutomaticRecovery": true,
+    "TopologyRecovery": true,
+    "Exchange": {
+        "Durable": true,
+        "AutoDelete": true,
+        "Type": "Topic"
+    },
+    "Queue": {
+        "AutoDelete": true,
+        "Durable": true,
+        "Exclusive": true
+    }
+  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+		private void ConfigureRabbitMq(IServiceCollection services)
+		{
+			var options = new RabbitMqOptions();
+			var section = Configuration.GetSection("rabbitmq");
+			section.Bind(options);
+			services.Configure<RabbitMqOptions>(section);
+			var client = BusClientFactory.CreateDefault(options);
+			services.AddSingleton(client);
+            services.AddScoped<ICommandHandler<CreateRecord>,
+                CreateRecordHandler>();
+		}
+ 
+        private void ConfigureHandlers(IApplicationBuilder app)
+        {
+            var client = app.ApplicationServices.GetService<IBusClient>();
+            client.SubscribeAsync<CreateRecord>((msg, ctx) => 
+            app.ApplicationServices.GetService
+                <ICommandHandler<CreateRecord>>().HandleAsync(msg));
+        }
+ 
+ 
+ 
+ 
+https://github.com/spetz/Depot
+https://github.com/spetz?tab=repositories 
+https://github.com/noordwind 
+ 
+ 
+https://www.myget.org/F/devwarsztaty-krk-net/api/v3/index.json
+ 
+ 
+RUN ["dotnet", "restore", "--source", "https://api.nuget.org/v3/index.json", "--source", "https://www.myget.org/F/devwarsztaty-krk-net/api/v3/index.json", "--no-cache"]
+ 
+FROM microsoft/dotnet:latest
+COPY . /app
+WORKDIR /app
+ 
+RUN ["dotnet", "restore", "--source", "https://api.nuget.org/v3/index.json", "--source", "https://www.myget.org/F/devwarsztaty-krk-net/api/v3/index.json", "--no-cache"]
+RUN ["dotnet", "build"]
+ 
+EXPOSE 5000/tcp
+ENV ASPNETCORE_URLS http://*:5000
+ 
+ENTRYPOINT ["dotnet", "run"]
+ 
+ 
+ 
+ 
+NuGet.config
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+ <packageSources>
+   <add key="NuGet" value="https://api.nuget.org/v3/index.json" />
+   <add key="OwnMessages" value="https://www.myget.org/F/devwarsztaty-krk-net/api/v3/index.json" />
+ </packageSources>
+</configuration>
+ 
+ 
+ 
+ 
+#!/bin/bash
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+ 
+https://github.com/lukasz-pyrzyk/devwarsztaty/
+ 
+ 
+FROM microsoft/dotnet:latest
+ 
+ 
+COPY . /app
+ 
+WORKDIR /app
+ 
+
+
+
+ 
+RUN ["dotnet", "restore", "--source", "https://api.nuget.org/v3/index.json", "--source", "https://www.myget.org/F/devwarsztaty-krk-net/api/v3/index.json", "--no-cache"]
+ 
+RUN ["dotnet", "build"]
+ 
+
+
+
+ 
+EXPOSE 5000/tcp
+ 
+ENV ASPNETCORE_URLS http://*:5000
+ 
+
+
+
+ 
+ENTRYPOINT ["dotnet", "run"]
+ 
+https://github.com/lukasz-pyrzyk/devwarsztaty/blob/master/Warsztaty/docker-compose.yaml
+ 
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+ 
+docker run -p 5000:5000 spetz/net-core-tour-2017-demo
+ 
+sudo apt-get install nginx
+ 
+ 
+server {
+    listen 80;
+ 
+    location / {
+            proxy_pass http://localhost:5000;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+    }
+}
+ 
+ 
+---------------
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+language: csharp
+dist: trusty
+sudo: required
+mono: none
+dotnet: 1.0.1
+branches:
+  only:
+    - master
+    - develop
+before_script:
+  - chmod a+x ./travis-build.sh
+  - chmod a+x ./after-success.sh
+script:
+  - ./travis-build.sh
+after_success:
+  - ./after-success.sh
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+ 
+ 
+travis-build.sh
+ 
+#!/bin/bash
+cd scripts
+./dotnet-restore.sh
+./dotnet-build.sh
+ 
+ 
+https://github.com/spetz/devwarsztaty
+ 
