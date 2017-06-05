@@ -207,3 +207,7 @@ cd scripts
  
 https://github.com/spetz/devwarsztaty
  
+
+
+ https://marketplace.visualstudio.com/items?itemName=MicrosoftCloudExplorer.VisualStudioToolsforDocker-Preview
+ https://github.com/dotnet/dotnet-docker
